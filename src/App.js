@@ -1,10 +1,36 @@
 import React, { Component } from 'react';
-import AuthComponent from './components/app/presentational/auth-component';
+import { connect } from 'react-redux';
+import GoogleAuth from './components/googleAuth';
+import { loginUser, logoutUser } from './actions/userActions';
 
-export default class App extends Component {
+class App extends Component {
+  constructor() {
+    super();
+    // this.state = {
+    //   estimatesPanelTitle: ''
+    // };
+  }
+
   render() {
     return (
-      <AuthComponent />
+      <>
+        <GoogleAuth
+          isAuthenticated={this.props.users.isAuthenticated}
+          loginUser={this.props.loginUser}
+          logoutUser={this.props.logoutUser}
+        />
+      </>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+  loginUser: () => dispatch(loginUser()),
+  logoutUser: () => dispatch(logoutUser())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

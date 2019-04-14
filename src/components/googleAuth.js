@@ -5,10 +5,15 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import config from 'config.json';
 // import logo from './logo.svg';
 
-export default class AuthComponent extends Component {
-  constructor() {
-    super();
-    this.state = { isAuthenticated: false, user: null, token: ''};
+class GoogleAuth extends Component {
+  constructor(props) {
+    super(props);
+
+    // this.state = {
+    //   isAuthenticated: false,
+    //   user: null,
+    //   token: ''
+    // };
     this.googleResponse = this.googleResponse.bind(this);
     this.logout = this.logout.bind(this);
     this.onFailure = this.onFailure.bind(this); 
@@ -31,14 +36,16 @@ export default class AuthComponent extends Component {
       response.json().then(user => {
         const token = user.access_token
         if (token) {
-          this.setState({isAuthenticated: true, user, token})
+          // this.setState({isAuthenticated: true, user, token})
+          this.props.loginUser();
         }
       });
     });
   }
 
   logout() {
-    this.setState({isAuthenticated: false, token: '', user: null})
+    // this.setState({isAuthenticated: false, token: '', user: null})
+    this.props.logoutUser();
   }
 
   onFailure(error) {
@@ -46,8 +53,7 @@ export default class AuthComponent extends Component {
   }
 
   render() {
-    const {isAuthenticated} = this.state;
-
+    const { isAuthenticated } = this.props;
     return (
       <div className="App">
         {
@@ -66,20 +72,6 @@ export default class AuthComponent extends Component {
           >
           </GoogleLogout>
         }
-        {/* <header className="App-header"> */}
-        {/*   <img src={logo} className="App-logo" alt="logo" /> */}
-        {/*   <p> */}
-        {/*     Edit <code>src/App.js</code> and save to reload. */}
-        {/*   </p> */}
-        {/*   <a */}
-        {/*     className="App-link" */}
-        {/*     href="https://reactjs.org" */}
-        {/*     target="_blank" */}
-        {/*     rel="noopener noreferrer" */}
-        {/*   > */}
-        {/*     Learn React */}
-        {/*   </a> */}
-        {/* </header> */}
       </div>
     );
   }
@@ -107,3 +99,32 @@ export default class AuthComponent extends Component {
 //   estimates: PropTypes.object.isRequired,
 // };
 
+// GoogleAuth.defaultProps = {
+//   loginUser: () => {},
+//   logoutUser: () => {},
+//   isAuthenticated: false,
+//   user: null,
+//   token: ''
+// };
+
+export default GoogleAuth;
+
+
+
+// Calendar.defaultProps = {
+//   onSelectSlot: () => {},
+//   onSelectEvent: () => {},
+//   onNavigate: () => {},
+//   notAvailableList: []
+// };
+//
+// Calendar.propTypes = {
+//   estimates: PropTypes.array.isRequired,
+//   notAvailableList: PropTypes.array,
+//   onSelectSlot: PropTypes.func,
+//   onSelectEvent: PropTypes.func,
+//   onNavigate: PropTypes.func
+// };
+//
+// export default Calendar;
+//

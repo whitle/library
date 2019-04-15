@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import GoogleAuth from './components/googleAuth';
+import GoogleAuth from './components/GoogleAuth';
+import AppTabs from './components/AppTabs';
 import { loginUser, logoutUser } from './actions/userActions';
 
 class App extends Component {
-  constructor() {
-    super();
-    // this.state = {
-    //   estimatesPanelTitle: ''
-    // };
-  }
-
   render() {
     return (
-      <>
+      <div>
         <GoogleAuth
-          isAuthenticated={this.props.users.isAuthenticated}
+					isAuthenticated={this.props.users.isAuthenticated}
           loginUser={this.props.loginUser}
           logoutUser={this.props.logoutUser}
         />
-      </>
+        {
+          this.props.users.isAuthenticated &&
+						<AppTabs
+							books={this.props.users.books}
+							assigned={this.props.users.assigned}
+							own={this.props.user.own}
+							profile={this.props.user.profile}
+						/>
+        }
+      </div>
     );
   }
 }

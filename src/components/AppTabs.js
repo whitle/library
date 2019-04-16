@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import Books from 'Books';
+import Books from './Books';
 
 class AppTabs extends Component {
   render() {
@@ -15,8 +14,8 @@ class AppTabs extends Component {
           <Tab>My profile</Tab>
         </TabList>
         <TabPanel>
-          <Books books={this.props.users.books}
-                 assigned={this.props.users.assigned}
+          <Books {...this.props}
+            accessToken={this.props.user.account_details.access_token}
           />
         </TabPanel>
         <TabPanel>

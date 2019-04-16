@@ -1,56 +1,41 @@
 import React, { Component } from 'react';
-import PropTypes from "prop-types";
-import { Row, Col } from "react-bootstrap";
+import BooksGrid from './BooksGrid';
+import BooksApi from 'api/BooksApi';
 
 class Books extends Component {
   constructor(props) {
     super(props);
-    // this.googleResponse = this.googleResponse.bind(this);
-    // this.logout = this.logout.bind(this);
-    // this.onFailure = this.onFailure.bind(this); 
+    this.booksApi = new BooksApi();
   }
 
-	componentDidMount() {		
-    const tokenBlob = new Blob(
-      [JSON.stringify({ access_token: this.props.accessToken }, null, 2)],
-      {type : 'application/json'}
-    );
+  componentDidMount() {
+    console.log('BOOK COMPONENT');
+    console.log(this.props);
 
-    // const options = {
-    //   method: 'POST',
-    //   body: tokenBlob,
-    //   mode: 'cors',
-    //   cache: 'default'
-    // };
-    const options = {
-      method: 'GET',
-      body: tokenBlob,
-      mode: 'cors',
-      cache: 'default'
-    };
-
-    fetch('http://localhost:3001/api/v1/books', options).then(response => {
-      response.json().then(books => {
-        // this.setState({isAuthenticated: true, user, token})
-        this.props.loginUser();
+    this.booksApi.notAssignedBooks({ accessToken: this.props.accessToken })
+      .then(response => {
+        this.props.notAssignedBooksRequest();
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json()
+      }).then(books => {
+        this.props.notAssignedBooksRequestSuccess(books);
+      }).catch(error => {
+        console.log(error);
+        this.props.logoutUser();
       });
-    });
-	}
+  }
 
   render() {
-    // const { isAuthenticated } = this.props;
+    if (this.props.books.isLoading) {
+      return <p>Loading...</p>;
+    }
     return (
-      <div className="App">
-        {
-          !isAuthenticated && <GoogleLogin
-            clientId={config.GOOGLE_CLIENT_ID}
-            buttonText="Login"
-            onSuccess={this.googleResponse}
-            onFailure={this.onFailure}
-            cookiePolicy={'single_host_origin'}
-          />
-        }
-      </div>
+      <BooksGrid {...this.props}
+        books={this.props.books.notAssigned}
+        accessToken={this.props.accessToken}
+      />
     );
   }
 }

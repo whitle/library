@@ -1,29 +1,36 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import Books from './Books';
+import NotAssignedBooks from './NotAssignedBooks';
 
 class AppTabs extends Component {
   render() {
     return (
       <Tabs>
         <TabList>
-          <Tab>Public books</Tab>
+          <Tab>Not assigned books</Tab>
           <Tab>Assigned books</Tab>
           <Tab>My books</Tab>
           <Tab>My profile</Tab>
         </TabList>
         <TabPanel>
-          <Books {...this.props}
+          <NotAssignedBooks {...this.props}
+            title='Not assigned books'
             accessToken={this.props.user.account_details.access_token}
           />
         </TabPanel>
         <TabPanel>
-          <h2>Any content 2</h2>
+          <NotAssignedBooks {...this.props}
+            title='Assigned books'
+            accessToken={this.props.user.account_details.access_token}
+          />
         </TabPanel>
         <TabPanel>
-          <h2>Any content 3</h2>
-        </TabPanel>
+          <NotAssignedBooks {...this.props}
+            title='My books'
+            accessToken={this.props.user.account_details.access_token}
+          />
+       </TabPanel>
         <TabPanel>
           <h2>Any content 4</h2>
         </TabPanel>

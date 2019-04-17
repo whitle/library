@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import BooksGrid from './BooksGrid';
 import BooksApi from 'api/BooksApi';
 
-class Books extends Component {
+class NotAssignedBooks extends Component {
   constructor(props) {
     super(props);
     this.booksApi = new BooksApi();
     this.fetchNotAssignedBooks = this.fetchNotAssignedBooks.bind(this);
+    this.onBookAssign = this.onBookAssign.bind(this);
   }
 
   fetchNotAssignedBooks() {
@@ -25,13 +26,25 @@ class Books extends Component {
       });
   }
 
-  componentDidMount() {
-    this.fetchNotAssignedBooks();
+  onBookAssign(bookId) {
+    this.booksApi.assignBook({ accessToken: this.props.accessToken, bookId: bookId })
+      .then(response => {
+        this.props.assignBookRequest();
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json()
+      }).then(books => {
+        this.props.assignBookRequestSuccess();
+        this.fetchNotAssignedBooks();
+      }).catch(error => {
+        console.log(error);
+        this.props.logoutUser();
+      });
   }
 
-  update() {
-    this.setState({ updateTrigger: Date.now() });
-    this.forceUpdate();
+  componentDidMount() {
+    this.fetchNotAssignedBooks();
   }
 
   render() {
@@ -43,15 +56,13 @@ class Books extends Component {
     }
 
     return (
-      <div>
-        <BooksGrid {...this.props}
-          items={this.props.books.notAssigned}
-          accessToken={this.props.accessToken}
-          callback={this.fetchNotAssignedBooks}
-        />
-      </div>
+      <BooksGrid {...this.props}
+        items={this.props.books.notAssigned}
+        accessToken={this.props.accessToken}
+        callback={this.onBookAssign}
+      />
     );
   }
 }
 
-export default Books;
+export default NotAssignedBooks;

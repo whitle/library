@@ -4,7 +4,8 @@ import GoogleAuth from './components/GoogleAuth';
 import AppTabs from './components/AppTabs';
 import { loginUser, logoutUser } from './actions/userActions';
 import {
-  notAssignedBooksRequestSuccess, notAssignedBooksRequest
+  notAssignedBooksRequest, notAssignedBooksRequestSuccess,
+  assignBookRequest, assignBookRequestSuccess
 } from './actions/booksActions';
 
 class App extends Component {
@@ -17,7 +18,7 @@ class App extends Component {
         {
           this.props.user.isAuthenticated &&
             <AppTabs {...this.props}
-           />
+            />
         }
       </div>
     );
@@ -31,8 +32,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loginUser: (user) => dispatch(loginUser(user)),
   logoutUser: () => dispatch(logoutUser()),
+  notAssignedBooksRequest: () => dispatch(notAssignedBooksRequest()),
   notAssignedBooksRequestSuccess: (books) => dispatch(notAssignedBooksRequestSuccess(books)),
-  notAssignedBooksRequest: () => dispatch(notAssignedBooksRequest())
+  assignBookRequest: () => dispatch(assignBookRequest()),
+  assignBookRequestSuccess: () => dispatch(assignBookRequestSuccess())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

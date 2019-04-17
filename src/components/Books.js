@@ -6,12 +6,10 @@ class Books extends Component {
   constructor(props) {
     super(props);
     this.booksApi = new BooksApi();
+    this.fetchNotAssignedBooks = this.fetchNotAssignedBooks.bind(this);
   }
 
-  componentDidMount() {
-    console.log('BOOK COMPONENT');
-    console.log(this.props);
-
+  fetchNotAssignedBooks() {
     this.booksApi.notAssignedBooks({ accessToken: this.props.accessToken })
       .then(response => {
         this.props.notAssignedBooksRequest();
@@ -27,15 +25,31 @@ class Books extends Component {
       });
   }
 
+  componentDidMount() {
+    this.fetchNotAssignedBooks();
+  }
+
+  update() {
+    this.setState({ updateTrigger: Date.now() });
+    this.forceUpdate();
+  }
+
   render() {
     if (this.props.books.isLoading) {
       return <p>Loading...</p>;
     }
+    else if (this.props.books.notAssigned.length === 0) {
+      return <h4 className='text-center'>Nothing to assign...</h4>;
+    }
+
     return (
-      <BooksGrid {...this.props}
-        books={this.props.books.notAssigned}
-        accessToken={this.props.accessToken}
-      />
+      <div>
+        <BooksGrid {...this.props}
+          items={this.props.books.notAssigned}
+          accessToken={this.props.accessToken}
+          callback={this.fetchNotAssignedBooks}
+        />
+      </div>
     );
   }
 }

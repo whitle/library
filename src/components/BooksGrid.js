@@ -12,15 +12,14 @@ class BooksGrid extends Component {
   onBookAssign(bookId) {
     this.booksApi.assignBook({ accessToken: this.props.accessToken, bookId: bookId })
       .then(response => {
-        // this.props.notAssignedBooksRequest();
+        this.props.assignBookRequest();
         if (!response.ok) {
           throw Error(response.statusText);
         }
-        console.log('GRID');
-        console.log(response);
         return response.json()
       }).then(books => {
-        // this.props.notAssignedBooksRequestSuccess(books);
+        this.props.assignBookRequestSuccess();
+        this.props.callback();
       }).catch(error => {
         console.log(error);
         this.props.logoutUser();
@@ -28,7 +27,6 @@ class BooksGrid extends Component {
   }
 
   render() {
-    console.log(this.props);
     return(
       <Container>
         <Row>
@@ -42,15 +40,15 @@ class BooksGrid extends Component {
           <Col md={3} />
         </Row>
         {
-          this.props.books.map((book, key) => {
+          this.props.items.map((item, key) => {
 
             return(
               <Row key={key}>
-                <Col md={1}>{book.id}</Col>
-                <Col md={3}>{book.title}</Col>
-                <Col md={3}>{book.author}</Col>
-                <Col md={2}>{book.pages}</Col>
-                <Col md={3}><Button variant='link' onClick={() => this.onBookAssign(book.id)}>Assign</Button></Col>
+                <Col md={1}>{item.id}</Col>
+                <Col md={3}>{item.title}</Col>
+                <Col md={3}>{item.author}</Col>
+                <Col md={2}>{item.pages}</Col>
+                <Col md={3}><Button variant='link' onClick={() => this.onBookAssign(item.id)}>Assign</Button></Col>
               </Row>
             )
           })

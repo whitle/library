@@ -5,7 +5,9 @@ import AppTabs from './components/AppTabs';
 import { loginUser, logoutUser } from './actions/userActions';
 import {
   notAssignedBooksRequest, notAssignedBooksRequestSuccess,
-  assignBookRequest, assignBookRequestSuccess
+  assignBookRequest, assignBookRequestSuccess,
+  assignedBooksRequest, assignedBooksRequestSuccess,
+  setDateOfReadingBookRequest, setDateOfReadingBookRequestSuccess
 } from './actions/booksActions';
 
 class App extends Component {
@@ -35,7 +37,11 @@ const mapDispatchToProps = dispatch => ({
   notAssignedBooksRequest: () => dispatch(notAssignedBooksRequest()),
   notAssignedBooksRequestSuccess: (books) => dispatch(notAssignedBooksRequestSuccess(books)),
   assignBookRequest: () => dispatch(assignBookRequest()),
-  assignBookRequestSuccess: () => dispatch(assignBookRequestSuccess())
+  assignBookRequestSuccess: () => dispatch(assignBookRequestSuccess()),
+  assignedBooksRequest: () => dispatch(assignedBooksRequest()),
+  assignedBooksRequestSuccess: (book) => dispatch(assignedBooksRequestSuccess(book)),
+  setDateOfReadingBookRequest: () => dispatch(setDateOfReadingBookRequest()),
+  setDateOfReadingBookRequestSuccess: () => dispatch(setDateOfReadingBookRequestSuccess())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

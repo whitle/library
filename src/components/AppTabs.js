@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import NotAssignedBooks from './NotAssignedBooks';
+import AssignedBooks from './AssignedBooks';
 
 class AppTabs extends Component {
   render() {
@@ -10,29 +11,20 @@ class AppTabs extends Component {
         <TabList>
           <Tab>Not assigned books</Tab>
           <Tab>Assigned books</Tab>
-          <Tab>My books</Tab>
           <Tab>My profile</Tab>
         </TabList>
         <TabPanel>
           <NotAssignedBooks {...this.props}
-            title='Not assigned books'
             accessToken={this.props.user.account_details.access_token}
           />
         </TabPanel>
         <TabPanel>
-          <NotAssignedBooks {...this.props}
-            title='Assigned books'
+          <AssignedBooks {...this.props}
             accessToken={this.props.user.account_details.access_token}
           />
         </TabPanel>
         <TabPanel>
-          <NotAssignedBooks {...this.props}
-            title='My books'
-            accessToken={this.props.user.account_details.access_token}
-          />
-       </TabPanel>
-        <TabPanel>
-          <h2>Any content 4</h2>
+          <h2>Profile</h2>
         </TabPanel>
       </Tabs>
     );

@@ -17,6 +17,20 @@ class BooksApi extends ApiClient {
     })
     return super.post('assign', tokenBlob);
   }
+
+  assignedBooks({accessToken}) {
+    const tokenBlob = super.composeTokenBlob({ access_token: accessToken });
+    return super.post('assigned', tokenBlob);
+  }
+
+  setDateOfReadingBook({accessToken, bookId, date}) {
+    const tokenBlob = super.composeTokenBlob({
+      access_token: accessToken,
+      book_id: bookId,
+      date: date
+    })
+    return super.post('date_of_reading', tokenBlob);
+  } 
 }
 
 export default BooksApi;

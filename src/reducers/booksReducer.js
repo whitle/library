@@ -1,10 +1,13 @@
 import {
   NOT_ASSIGNED_BOOKS_REQUEST, NOT_ASSIGNED_BOOKS_REQUEST_SUCCESS,
-  ASSIGN_BOOK_REQUEST, ASSIGN_BOOK_REQUEST_SUCCESS
+  ASSIGN_BOOK_REQUEST, ASSIGN_BOOK_REQUEST_SUCCESS,
+  ASSIGNED_BOOKS_REQUEST, ASSIGNED_BOOKS_REQUEST_SUCCESS,
+  SET_DATE_OF_READING_BOOK_REQUEST, SET_DATE_OF_READING_BOOK_REQUEST_SUCCESS
 } from 'actions/booksActions';
 
 const INITIAL_STATE = {
   notAssigned: [],
+  assigned: [],
   error: null,
   isLoading: false
 };
@@ -15,10 +18,22 @@ const BooksReducer = (state = INITIAL_STATE, action) => {
       return { ...state, isLoading: true };
     case NOT_ASSIGNED_BOOKS_REQUEST_SUCCESS:
       return { ...state, notAssigned: action.payload, isLoading: false }
+
     case ASSIGN_BOOK_REQUEST:
       return { ...state, isLoading: true }
     case ASSIGN_BOOK_REQUEST_SUCCESS:
       return { ...state, isLoading: false }
+
+    case ASSIGNED_BOOKS_REQUEST:
+      return { ...state, isLoading: true };
+    case ASSIGNED_BOOKS_REQUEST_SUCCESS:
+      return { ...state, assigned: action.payload, isLoading: false }
+
+    case SET_DATE_OF_READING_BOOK_REQUEST:
+      return { ...state, isLoading: true }
+    case SET_DATE_OF_READING_BOOK_REQUEST_SUCCESS:
+      return { ...state, isLoading: false }
+
     default:
       return state;
   }

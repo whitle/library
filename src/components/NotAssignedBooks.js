@@ -57,8 +57,9 @@ class NotAssignedBooks extends Component {
 
     return (
       <BooksGrid {...this.props}
+        title='Not assigned books'
+        actionName='Assign'
         items={this.props.books.notAssigned}
-        accessToken={this.props.accessToken}
         callback={this.onBookAssign}
       />
     );

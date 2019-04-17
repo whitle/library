@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import BooksApi from 'api/BooksApi';
 
 class BooksGrid extends Component {
@@ -8,11 +10,28 @@ class BooksGrid extends Component {
     this.booksApi = new BooksApi();
   }
 
+  bookProgressAction() {
+    return(
+      <>
+        <Row>
+          Date:
+          <DatePicker
+            selected={new Date()}
+          />
+        </Row>
+        <Row>
+          Pages:
+          <input/>
+        </Row>
+      </>
+    );
+  }
+
   render() {
     return(
       <Container>
         <Row>
-          <Col md={12}><h2 className='text-center'>Public books</h2></Col>
+          <Col md={12}><h2 className='text-center'>{this.props.title}</h2></Col>
         </Row>
         <Row>
           <Col md={1}><strong>Id</strong></Col>
@@ -29,7 +48,12 @@ class BooksGrid extends Component {
                 <Col md={3}>{item.title}</Col>
                 <Col md={3}>{item.author}</Col>
                 <Col md={2}>{item.pages}</Col>
-                <Col md={3}><Button variant='link' onClick={() => this.props.callback(item.id)}>Assign</Button></Col>
+                <Col md={3}>
+                  { this.props.date && this.bookProgressAction() }
+                  <Button variant='link' onClick={() => this.props.callback(item.id)}>
+                    {this.props.actionName}
+                  </Button>
+                </Col>
               </Row>
             )
           })

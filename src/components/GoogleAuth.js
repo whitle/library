@@ -11,8 +11,8 @@ class GoogleAuth extends Component {
     this.logout = this.logout.bind(this);
     this.onFailure = this.onFailure.bind(this); 
     this.googleAuthApi = new GoogleAuthApi();
-
   }
+
   googleResponse(response) {
     this.googleAuthApi.getUser({ accessToken: response.accessToken })
       .then(response => response.json())

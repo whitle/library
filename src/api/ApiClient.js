@@ -1,10 +1,10 @@
 class ApiClient {
-  constructor({baseUrl}) {
-    this.baseUrl = baseUrl;
+  constructor({basePath}) {
+    this.basePath = basePath;
   }
 
-  post(url, data) {
-    return fetch(`${this.baseUrl}/${url}`, {
+  post(path, data) {
+    return fetch(`${this.basePath}/${path}`, {
       method: 'POST',
       body: data,
       mode: 'cors',

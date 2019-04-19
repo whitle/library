@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import GoogleAuthApi from 'api/GoogleAuthApi';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import config from 'config.json';
 // import logo from './logo.svg';
 
 class GoogleAuth extends Component {
@@ -39,7 +38,7 @@ class GoogleAuth extends Component {
       <div className="App">
         {
           !isAuthenticated && <GoogleLogin
-            clientId={config.GOOGLE_CLIENT_ID}
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             buttonText="Login"
             onSuccess={this.googleResponse}
             onFailure={this.onFailure}

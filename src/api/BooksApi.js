@@ -1,8 +1,8 @@
-import ApiClient from './ApiClient'
+import ApiClient from './ApiClient';
 
 class BooksApi extends ApiClient {
   constructor() {
-    super({baseUrl:'api/v1/books'});
+    super({basePath:`${process.env.REACT_APP_PROXY}/api/v1/books`});
   }
 
   notAssignedBooks({accessToken}) {

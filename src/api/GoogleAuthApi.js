@@ -2,7 +2,7 @@ import ApiClient from './ApiClient'
 
 class GoogleAuthApi extends ApiClient {
   constructor() {
-    super({baseUrl:'api/v1/auth'});
+    super({basePath:`${process.env.REACT_APP_PROXY}/api/v1/auth`});
   }
 
   getUser({accessToken}) {

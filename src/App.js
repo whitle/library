@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GoogleAuth from './components/GoogleAuth';
 import AppTabs from './components/AppTabs';
-import { loginUser, logoutUser } from './actions/userActions';
+import {
+  loginUserRequestSuccess,
+  logoutUserRequestSuccess }
+from './actions/userActions';
 import {
   notAssignedBooksRequest, notAssignedBooksRequestSuccess,
   assignBookRequest, assignBookRequestSuccess,
@@ -32,8 +35,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  loginUser: (user) => dispatch(loginUser(user)),
-  logoutUser: () => dispatch(logoutUser()),
+  loginUserRequestSuccess: (user) => dispatch(loginUserRequestSuccess(user)),
+  logoutUserRequestSuccess: () => dispatch(logoutUserRequestSuccess()),
   notAssignedBooksRequest: () => dispatch(notAssignedBooksRequest()),
   notAssignedBooksRequestSuccess: (books) => dispatch(notAssignedBooksRequestSuccess(books)),
   assignBookRequest: () => dispatch(assignBookRequest()),

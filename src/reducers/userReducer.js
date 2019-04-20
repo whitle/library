@@ -1,4 +1,7 @@
-import { LOGIN_USER, LOGOUT_USER } from 'actions/userActions';
+import {
+  LOGIN_USER_REQUEST_SUCCESS,
+  LOGOUT_USER_REQUEST_SUCCESS
+} from 'actions/userActions';
 
 const INITIAL_STATE = {
   own_books: [],
@@ -11,9 +14,9 @@ const INITIAL_STATE = {
 
 const UserReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case LOGIN_USER:
+    case LOGIN_USER_REQUEST_SUCCESS:
       return { ...state, isAuthenticated: true, account_details: action.payload }
-    case LOGOUT_USER:
+    case LOGOUT_USER_REQUEST_SUCCESS:
       return { ...state, isAuthenticated: false }
     default:
       return state;

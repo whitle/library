@@ -1,11 +1,11 @@
-export const LOGIN_USER = 'LOGIN_USER';
-export const LOGOUT_USER = 'LOGOUT_USER';
+export const LOGIN_USER_REQUEST_SUCCESS = 'LOGIN_USER';
+export const LOGOUT_USER_REQUEST_SUCCESS = 'LOGOUT_USER';
 
-export const loginUser = (user) => ({
-  type: LOGIN_USER,
+export const loginUserRequestSuccess = (user) => ({
+  type: LOGIN_USER_REQUEST_SUCCESS,
   payload: user
 });
 
-export const logoutUser = () => ({
-  type: LOGOUT_USER
+export const logoutUserRequestSuccess = () => ({
+  type: LOGOUT_USER_REQUEST_SUCCESS
 });

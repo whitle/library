@@ -18,14 +18,14 @@ class GoogleAuth extends Component {
       .then(user => {
         const token = user.access_token
         if (token) {
-          this.props.loginUser(user);
+          this.props.loginUserRequestSuccess(user);
           console.log(user);
         }
       });
   }
 
   logout() {
-    this.props.logoutUser();
+    this.props.logoutUserRequestSuccess();
   }
 
   onFailure(error) {

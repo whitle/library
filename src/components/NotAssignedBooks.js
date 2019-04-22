@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import BooksGrid from './BooksGrid';
+
+import BooksGrid from './books-grid/BooksGrid';
+import './books-grid/BooksGrid.scss';
+
 import BooksApi from 'api/BooksApi';
 
 class NotAssignedBooks extends Component {
@@ -22,7 +25,7 @@ class NotAssignedBooks extends Component {
         this.props.notAssignedBooksRequestSuccess(books);
       }).catch(error => {
         console.log(error);
-        this.props.logoutUser();
+        this.props.logoutUserRequestSuccess();
       });
   }
 
@@ -39,7 +42,7 @@ class NotAssignedBooks extends Component {
         this.fetchNotAssignedBooks();
       }).catch(error => {
         console.log(error);
-        this.props.logoutUser();
+        this.props.logoutUserRequestSuccess();
       });
   }
 
@@ -57,8 +60,8 @@ class NotAssignedBooks extends Component {
 
     return (
       <BooksGrid {...this.props}
-        title='Not assigned books'
-        actionName='Assign'
+        title='Available books'
+        section='not_assigned'
         items={this.props.books.notAssigned}
         callback={this.onBookAssign}
       />

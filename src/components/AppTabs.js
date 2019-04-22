@@ -9,7 +9,7 @@ class AppTabs extends Component {
     return (
       <Tabs>
         <TabList>
-          <Tab>Not assigned books</Tab>
+          <Tab>Available books</Tab>
           <Tab>Assigned books</Tab>
           <Tab>My profile</Tab>
         </TabList>

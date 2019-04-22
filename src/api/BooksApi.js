@@ -23,11 +23,12 @@ class BooksApi extends ApiClient {
     return super.post('assigned', tokenBlob);
   }
 
-  setDateOfReadingBook({accessToken, bookId, date}) {
+  setDateOfReadingBook({accessToken, bookId, dateOfReading, pagesRead}) {
     const tokenBlob = super.composeTokenBlob({
       access_token: accessToken,
       book_id: bookId,
-      date: date
+      date_of_reading: dateOfReading,
+      pages_read: pagesRead
     })
     return super.post('date_of_reading', tokenBlob);
   } 

@@ -1,0 +1,20 @@
+$namespace: '.books-grid';
+
+#{$namespace}--header {
+  margin-bottom: 15px;
+}
+
+#{$namespace}--field-name {
+  margin-bottom: 5px;
+}
+
+#{$namespace}--row {
+  align-items: center;
+  background-color: #f7f7f7;
+  display: flex;
+  margin-bottom: 10px;
+
+  .center {
+    justify-content: center;
+  }
+}

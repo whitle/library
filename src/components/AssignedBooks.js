@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BooksGrid from './BooksGrid';
+import BooksGrid from './books-grid/BooksGrid';
 import BooksApi from 'api/BooksApi';
 
 class AssignedBooks extends Component {
@@ -7,7 +7,7 @@ class AssignedBooks extends Component {
     super(props);
     this.booksApi = new BooksApi();
     this.fetchAssignedBooks = this.fetchAssignedBooks.bind(this);
-    this.onDateOfReadingSet = this.onDateOfReadingSet.bind(this);
+    this.onBookProgressSet = this.onBookProgressSet.bind(this);
   }
 
   fetchAssignedBooks() {
@@ -22,13 +22,17 @@ class AssignedBooks extends Component {
         this.props.assignedBooksRequestSuccess(books);
       }).catch(error => {
         console.log(error);
-        this.props.logoutUser();
+        this.props.logoutUserRequestSuccess();
       });
   }
 
-  onDateOfReadingSet(bookId) {
-    this.booksApi.setDateOfReadingBook({ accessToken: this.props.accessToken, bookId: bookId })
-      .then(response => {
+  onBookProgressSet(bookId, dateOfReading, pagesRead) {
+    this.booksApi.setDateOfReadingBook({
+        accessToken: this.props.accessToken,
+        bookId: bookId,
+        dateOfReading: dateOfReading,
+        pagesRead: pagesRead
+      }).then(response => {
         this.props.setDateOfReadingBookRequest();
         if (!response.ok) {
           throw Error(response.statusText);
@@ -37,9 +41,10 @@ class AssignedBooks extends Component {
       }).then(books => {
         this.props.setDateOfReadingBookRequestSuccess();
         this.fetchAssignedBooks();
+        alert(`Done!\nDate of reading: ${dateOfReading}\nPages read: ${pagesRead}`);
       }).catch(error => {
         console.log(error);
-        this.props.logoutUser();
+        this.props.logoutUserRequestSuccess();
       });
   }
 
@@ -58,10 +63,9 @@ class AssignedBooks extends Component {
     return (
       <BooksGrid {...this.props}
         title='Assigned books'
-        actionName='Set date'
-        date
+        section='assigned'
         items={this.props.books.assigned}
-        callback={this.onDateOfReadingSet}
+        callback={this.onBookProgressSet}
       />
     );
   }

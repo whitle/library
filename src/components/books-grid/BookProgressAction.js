@@ -48,7 +48,8 @@ class BookProgressAction extends Component {
         <div className='book-progress-action--row'>
           <label>Read the pages:</label>
           <div className='book-progress-action--read-pages'>
-            <input onChange={this.onPagesReadChange} />
+            <input type='number'
+                   onChange={this.onPagesReadChange} />
           </div>
         </div>
         <div className='book-progress-action--row center'>

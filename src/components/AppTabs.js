@@ -3,6 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import NotAssignedBooks from './NotAssignedBooks';
 import AssignedBooks from './AssignedBooks';
+import OwnBooks from './OwnBooks';
 
 class AppTabs extends Component {
   render() {
@@ -11,6 +12,7 @@ class AppTabs extends Component {
         <TabList>
           <Tab>Available books</Tab>
           <Tab>Assigned books</Tab>
+          <Tab>My books</Tab>
           <Tab>My profile</Tab>
         </TabList>
         <TabPanel>
@@ -20,6 +22,11 @@ class AppTabs extends Component {
         </TabPanel>
         <TabPanel>
           <AssignedBooks {...this.props}
+            accessToken={this.props.user.account_details.access_token}
+          />
+        </TabPanel>
+        <TabPanel>
+          <OwnBooks {...this.props}
             accessToken={this.props.user.account_details.access_token}
           />
         </TabPanel>

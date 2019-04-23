@@ -19,7 +19,6 @@ class GoogleAuth extends Component {
         const token = user.access_token
         if (token) {
           this.props.loginUserRequestSuccess(user);
-          console.log(user);
         }
       });
   }

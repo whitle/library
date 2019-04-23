@@ -16,29 +16,14 @@ class BooksGridAction extends Component {
           </Button>
         );
       case 'assigned':
+      case 'own':
         return (<BookProgressAction
                  bookId={this.props.bookId}
                  callback={this.props.callback}
                />);
-      // case 'assigned':
-      //   return <BookProgressAction />
-      // case 'own':
-      //   return <BookProgressAction />
       default: return null;
     }
   }
 }
-
-//  {
-//    <div>
-//      {
-//        this.props.date && <Col md={2}>
-//          { this.bookProgressAction(item.id) }
-//        </Col>
-//      }
-//      <Col md={1}>{this.buttonAction(item.id)}</Col>
-//    </div>
-//  }
-
 
 export default BooksGridAction;

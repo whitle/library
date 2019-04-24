@@ -1,28 +1,57 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
+import GoogleAuth from './components/GoogleAuth';
+import AppTabs from './components/AppTabs';
+import {
+  loginUserRequestSuccess,
+  logoutUserRequestSuccess }
+from './actions/userActions';
+import {
+  notAssignedBooksRequest, notAssignedBooksRequestSuccess,
+  assignBookRequest, assignBookRequestSuccess,
+  assignedBooksRequest, assignedBooksRequestSuccess,
+  setDateOfReadingBookRequest, setDateOfReadingBookRequestSuccess,
+  ownBooksRequest, ownBooksRequestSuccess,
+  addBookRequest, addBookRequestSuccess
+} from './actions/booksActions';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <h1 style={{textAlign: 'center'}}>Library</h1>
+        <GoogleAuth {...this.props}
+          isAuthenticated={this.props.user.isAuthenticated}
+        />
+        {
+          this.props.user.isAuthenticated &&
+            <AppTabs {...this.props}
+            />
+        }
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+  loginUserRequestSuccess: (user) => dispatch(loginUserRequestSuccess(user)),
+  logoutUserRequestSuccess: () => dispatch(logoutUserRequestSuccess()),
+  notAssignedBooksRequest: () => dispatch(notAssignedBooksRequest()),
+  notAssignedBooksRequestSuccess: (books) => dispatch(notAssignedBooksRequestSuccess(books)),
+  assignBookRequest: () => dispatch(assignBookRequest()),
+  assignBookRequestSuccess: () => dispatch(assignBookRequestSuccess()),
+  assignedBooksRequest: () => dispatch(assignedBooksRequest()),
+  assignedBooksRequestSuccess: (book) => dispatch(assignedBooksRequestSuccess(book)),
+  setDateOfReadingBookRequest: () => dispatch(setDateOfReadingBookRequest()),
+  setDateOfReadingBookRequestSuccess: () => dispatch(setDateOfReadingBookRequestSuccess()),
+  ownBooksRequest: () => dispatch(ownBooksRequest()),
+  ownBooksRequestSuccess: (book) => dispatch(ownBooksRequestSuccess(book)),
+  addBookRequest: () => dispatch(addBookRequest()),
+  addBookRequestSuccess: () => dispatch(addBookRequestSuccess()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

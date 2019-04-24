@@ -1,0 +1,30 @@
+$namespace: '.book-progress-action';
+
+#{$namespace} {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+#{$namespace}--row {
+  align-items: baseline;
+  display: flex;
+
+  label {
+    flex: 1;
+    font-weight: normal;
+  }
+
+  .react-datepicker-wrapper,
+  #{$namespace}--read-pages {
+    flex: 1;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .react-datepicker__input-container {
+    width: 100%;
+  }
+}
